@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+{% block title %} Webssh {% endblock %}
+{% block style %}
+<style>
+    .limit-width-7{
+        max-width : 7rem;
+        min-width: 7rem;
+        margin-right: 1rem;
+    }
+    .limit-width-12{
+        max-width : 12rem;
+        margin-right: 1rem;
+    }
+    .limit-width-22{
+        max-width : 22rem;
+        min-width: 22rem;
+        margin-right: 1rem;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div style="display: none;" class="d-flex justify-content-center">
+    <div id="lurs1" class=" w-50">
+        <input id="lurl"  class="form-control" type="text" value="https://cwmp-data-models.broadband-forum.org/tr-181-2-14-1-cwmp-full.xml" placeholder="https://cwmp-data-models.broadband-forum.org/tr-181-2-14-1-cwmp-full.xml"/>
+    </div>
+    <button id="lurs2" type="submit" class="btn btn-primary " onclick="loadCommand()" style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;">
+        Load
+    </button>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div id="loading" style="display: none;">
+        <button class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+        </button>
+    </div>
+    <div class="card p-3" style="background: white;display: none;" id="main" >
+        <div class="d-flex justify-content-center" >
+            <select class="form-select limit-width-12" id="binary" data-control="select2" data-placeholder="Select Binary">
+                <option value="cfgcli">CFGCLI</option>
+                <option value="pcb_cli">PCB_CLI</option>
+            </select>
+            <select class="form-select limit-width-7" id="gos" data-control="select2" data-placeholder="Select Option">
+                <option value="">EMPTY</option>
+                <option value="-g">GET</option>
+                <option value="-s">SET</option>
+            </select>
+            <select class="form-select limit-width-22" data-control="select2" onchange="commandsCLICK()" id="commands" data-placeholder="Select an option">
+                <option></option>
+            </select>
+            <button type="button" class="btn btn-warning" style="margin-right:.2rem ;" data-bs-toggle="modal" data-bs-target="#kt_modal_2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </button>
+            <select class="form-select limit-width-12" data-control="select2" onchange="detailsCLICK()" id="parameter" data-placeholder="Select an option">
+                <option></option>
+            </select>
+
+            <button type="button" class="btn btn-warning" style="margin-right:.2rem ;" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </button>
+
+            <button type="submit" class="btn btn-primary " onclick="showCOMMAND(this)" style="margin-left:.2rem;">
+                SEND
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="kt_modal_1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Details</h5>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <p id="tooltip">SELECT A PARAMETER FIRST</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="kt_modal_2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Details</h5>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <p id="tooltip2">SELECT A OBJECT FIRST</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div id="exe" style="display: none;" class=" w-50">
+        <input id="exe1"  class="form-control" type="text" value="https://cwmp-data-models.broadband-forum.org/tr-181-2-14-1-cwmp-full.xml" placeholder="https://cwmp-data-models.broadband-forum.org/tr-181-2-14-1-cwmp-full.xml"/>
+    </div>
+    <button id="exe2" style="display: none;" type="submit" class="btn btn-primary " onclick="execute()" style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;">
+        Execute
+    </button>
+</div>
+
+
+
+{% endblock %}
+{% block script %}
+<script>
+    var allCommands = []
+    var gos = document.getElementById("gos");
+    var binary = document.getElementById("binary");
+    var commands = document.getElementById("commands");
+    var parameter = document.getElementById("parameter");
+    var tooltips = document.getElementById("tooltip");
+    var paramINDEX = null;
+    //$( document ).ready(function() {
+    function loadCommand() {
+        document.querySelector("#lurs1").style.display = "none";
+        document.querySelector("#lurs2").style.display = "none";
+        document.querySelector("#loading").style.display = "block";
+        
+        load_url = document.querySelector("#lurl").value;
+        dcrp =  btoa(load_url)
+        loadURL = `/cfgcli_commands/${dcrp}`
+        fetch(loadURL).then(res=>res.json()).then(res=>{
+            res = res['response']
+            if (res['ERROR']){
+                window.location.replace("{{ url_for('sample.response_basic_view',err_body='Invalid Structure OR Url') }}");
+            }
+            else{
+                res.map((v,k)=>{
+                    allCommands.push(v);
+                })
+                allCommands.map((v,k)=>{
+                    if(v['@name']){
+                        commands.innerHTML += `<option value="${v['@name']}">${v['@name']}</option>`
+                    }else if(v['@base']){
+                        commands.innerHTML += `<option value="${v['@base']}">${v['@base']}</option>`
+                    }
+                    
+                })
+                document.querySelector("#loading").style.display = "none";
+                document.querySelector("#main").style.display = "block";
+            }
+        })
+    }
+    function commandsCLICK(){
+        var key = null;
+        for(let k=1;k<commands.options.length;k++)
+        {
+            if ( commands.options[k].text == commands.value ){
+                key = k-1;
+            }
+        }
+        des = allCommands[key]
+        if(des['description']){
+            document.getElementById('tooltip2').innerHTML = des['description'];
+        }else{
+            document.getElementById('tooltip2').innerHTML = "No Description Available"
+        }
+        parm = allCommands[key]['parameter']
+        pstr = "<option></option>"
+        try{
+            parm.map((v,k)=>{
+                if(v['@name']){
+                    pstr += `<option value="${v['@name']}">${v['@name']}</option>`
+                    
+                }else if(v['@base']){
+                    pstr += `<option value="${v['@base']}">${v['@base']}</option>`
+                }
+            })
+        }catch(err){
+
+        }
+        parameter.innerHTML = pstr;
+        paramINDEX = key;
+    }
+    function detailsCLICK(){
+        let parm = allCommands[paramINDEX]['parameter']
+        parm.map((v,k)=>{
+            if(v['@name'] == parameter.value || v['@base'] == parameter.value ){
+                if (v['description']['#text']){
+                    tooltips.innerHTML = `
+<br/>( Data Type : ${v['syntax']?Object.keys(v['syntax']):""} )
+${v['description']['#text']}`;
+                }else{
+                    tooltips.innerHTML = `( DataType : ${Object.keys(v['syntax'])} )
+${v['description']}`;
+                }
+                
+            }
+        })
+    }
+    function showCOMMAND(ele){
+        let execute = `${binary.value} ${gos.value} ${commands.value}${parameter.value}`
+        document.getElementById("main").style.display = "none"
+        document.getElementById("exe1").value = execute
+        document.getElementById("exe").style.display = "Block"
+        document.getElementById("exe2").style.display = "Block"
+        //alert(execute)
+        //window.location.href = `/cfgcli_execute/${execute}/`
+    }
+    function execute(){
+        let executeCOM = document.getElementById("exe1").value;
+        window.location.href = `/cfgcli_execute/${executeCOM}/`
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,11 @@
+.npmignore
+test
+static/js
+static/css
+app
+transforms
+views
+.jshintrc
+*.tgz
+.npmrc
+docker/

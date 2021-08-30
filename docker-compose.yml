@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+  flask:
+    container_name: flask
+    ports:
+        - "5000:5000"
+    build:
+      context: ./
+      network: host
+
+  webshell:
+    container_name: webshell
+    ports:
+        - "8080:8080"
+    build:
+      context: ./Features
+      network: host
+
+  cellfinder:
+    container_name: cellfinder
+    ports:
+        - "4000:4000"
+    build:
+      context: ./mapkit
+      network: host
+
+  ansible:
+    container_name: ansible
+    ports:
+        - "3000:3000"
+    build:
+      context: ./ansible-ui/docker
+      network: host
+
+  # selenium:
+  #   container_name: selenium
+  #   build:
+  #     context: ./selenium
+  #     network: host
+
+  # ansibleui:
+  #   container_name: ansibleui
+  #   ports:
+  #       - "4000:4000"
+  #   build:
+  #     context: ./ansibleui
+  #     network: host

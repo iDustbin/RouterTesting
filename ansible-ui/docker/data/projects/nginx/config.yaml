@@ -1,0 +1,35 @@
+
+scm:
+    type: git
+    repository: https://github.com/idustbin/nginx
+    rev: master
+
+#notify when build fails or build status changes (according to previous status)
+#to use email notification notify.mail section in server config should be
+#configured
+
+# notify:
+#     on:
+#         - error
+#         - change
+#     to:
+#         mail:
+#             - your_mail@example.com
+
+#some shell steps before run playbook with inventories
+steps:
+    - name: Some action before playbooks
+      cmd: echo "do something"
+
+playbooks:
+    - name: common
+      path: projects/nginx/poc/playbooks/common.yml
+      inventories:
+          - name: all
+            path: projects/nginx/poc/playbooks/inventories/all.ini
+
+    - name: check_host_availability
+      path: projects/nginx/playbooks/ping/main.yaml
+      inventories:
+          - name: sample
+            path: projects/nginx/inventories/sample/hosts

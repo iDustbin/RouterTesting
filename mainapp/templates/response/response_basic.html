@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} Verification Page {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+  <div class="card w-75 p-3 ">
+        <div class="card-header d-flex justify-content-center align-items-center">
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-center">
+            <div>
+              <div class="d-flex justify-content-center">
+                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_5zku0tz5.json"  background="transparent"  speed="1"  style="width: 16rem; height: 16rem;"    autoplay></lottie-player>
+              </div>
+              <h1 style="text-align:center">{{err_body}}</h1>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+{% endblock %}

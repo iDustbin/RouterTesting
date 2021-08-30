@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %} iPerf3 {% endblock %}
+{% block style %}
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js"></script>
+{% endblock %}
+{% block content %}
+
+<div>
+    <div class="modal fade" id="model" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">iPerf3 SpeedTest</h5>
+    
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-2x"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <div id="oflow" style="height:60vh;" class="modal-body overflow-auto">
+                    <div id="loading">
+                        <div class="d-flex justify-content-center my-6">
+                            <div class="spinner-grow text-danger" style="width: 4rem; height: 4rem;" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center my-6 align-items-center">
+                            <div class="spinner-border text-primary mx-3" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <h1 class="text-gray-500 fs-4 align-middle my-4">Speedtest Running</h1>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center" id="done">
+                        
+                    </div>
+                    <div class="d-flex justify-content-center ">
+                        <div class="card w-75 p-3 bg-gray ">
+                            <div class="separator border-secondary my-1"></div>
+                            <!-- 1 -->
+                            <!-- overflow: auto; -->
+                            <pre style="overflow: scroll;font-weight: bold;display:none" class="p-2 bg-dark text-gray-100" id="result">
+    
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" onclick="closeModel()" id="closeBTN" style="display: none;" class="btn btn-light" >Close</button>
+                    <!-- <button type="button" hidden class="btn btn-primary"></button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="card w-75 p-6">
+        <!--  -->
+        <div class="d-flex justify-content-start my-6 px-2">
+            <label class="required form-label">Hostname Or IP</label>
+        </div>
+        <div class="d-flex justify-content-center">
+            <input name="host_name" id="host_name" required  type="text" class="form-control form-control-solid" placeholder=""/>    
+        </div>
+        <!--  -->
+        <div class="d-flex justify-content-start my-6 px-2">
+            <label class="required form-label">Port</label>
+        </div>
+        <div class="d-flex justify-content-center">
+            <input name="port" id="port" required  type="text" class="form-control form-control-solid" placeholder=""/>    
+        </div>
+        <!--  -->
+        <!--  -->
+        <div class="d-flex justify-content-start my-6 px-2">
+            <label class=" form-label">Add Custom Parameter</label>
+        </div>
+        <div class="d-flex justify-content-center">
+            <input name="para" id="para" type="text" class="form-control form-control-solid" placeholder="-h (for help)"/>    
+        </div>
+        <!--  -->
+        <div class="d-flex justify-content-center my-6">
+            <button onclick="runTest()" type="button" class="btn btn-primary">
+                Run Speedtest
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block script %}
+<script>
+    let model = document.querySelector("#model");
+    const runTest = () =>{
+        model.className = "modal fade show";
+        model.style.display = "block";
+        model.role = "dialog";
+        ookla()
+    }
+    
+    function closeModel(){
+        location.reload();
+    }
+    
+    function ookla(){
+        let host_name = document.querySelector("#host_name").value
+        let port = document.querySelector("#port").value
+        let para = document.querySelector("#para").value
+
+        let result = document.getElementById("result")
+        const data = { 
+            'host_name': host_name,
+            'port' : port,
+            'para' : para
+         };
+        fetch('/iperf_Result', {
+            method: 'POST', // or 'PUT'
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => response.json())
+          .then(data => {
+            //console.log('Success:', data);
+            result.innerHTML = data['res'];
+            result.style.display = "block";
+            document.getElementById("loading").style.display = "none"
+            document.getElementById("closeBTN").style.display = "block"
+            document.getElementById("done").innerHTML = `
+                <dotlottie-player src="https://assets10.lottiefiles.com/dotlotties/dlf10_hrchnagr.lottie"  background="transparent"  speed="1"  style="width: 100px; height: 100px;"    autoplay></dotlottie-player>
+                `
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+          
+    }
+</script>
+{% endblock %}

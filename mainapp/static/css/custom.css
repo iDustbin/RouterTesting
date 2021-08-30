@@ -1,0 +1,229 @@
+
+.window {
+  max-width: 600px;
+  min-width: 420px;
+  margin: 20px auto 0px auto;
+}
+
+.microsoft {
+  font-family: "Raleway", sans-serif;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  animation: openwindows 0.2s;
+  transform-origin: bottom center;
+}
+.microsoft .header {
+  display: flex;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 40px;
+  font-weight: 100;
+  height: 40px;
+  background: #449;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+}
+.microsoft .header .title {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0px 10px;
+  display: flex;
+}
+.microsoft .header .title .icon {
+  width: 30px;
+  position: relative;
+  display: inline-block;
+  top: 6px;
+}
+.microsoft .header .title .text {
+  height: 25px;
+  top: 7px;
+  position: relative;
+  padding: 0px 8px;
+  line-height: 25px;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+.microsoft .header .buttons {
+  display: flex;
+  width: 160px;
+  height: 30px;
+}
+.microsoft .header .buttons .btn {
+  flex: 1;
+  text-align: center;
+}
+.microsoft .header .buttons .btn:hover {
+  cursor: pointer;
+}
+.microsoft .header .buttons .btn:hover.minus {
+  background: rgba(0, 0, 0, 0.25);
+}
+.microsoft .header .buttons .btn:hover.expand {
+  background: rgba(0, 0, 0, 0.25);
+}
+.microsoft .header .buttons .btn:hover.close {
+  background: rgba(150, 0, 0, 0.5);
+}
+.microsoft .header .buttons .btn i {
+  position: relative;
+  display: inline-block;
+  top: -1px;
+  font-size: 20px;
+}
+.microsoft .form {
+  min-height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ubuntu {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  animation: hide 0.5s, openwindows 0.25s;
+  animation-delay: 0s, 0.5s;
+}
+.ubuntu .header {
+  height: 30px;
+  line-height: 30px;
+  display: flex;
+  border-radius: 6px 6px 0px 0px;
+  background: linear-gradient(#333, #323232);
+  border: 1px solid #333;
+  border-bottom: none;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  position: relative;
+}
+
+.ubuntu .header .buttons .btn {
+  flex: 1;
+  display: inline-block;
+  text-align: center;
+}
+.ubuntu .header .buttons .btn i {
+  position: relative;
+  top: 0px;
+  font-size: 11px;
+  width: 17px;
+  height: 17px;
+  left: 0px;
+  padding-left: 0px;
+  line-height: 15px;
+  background: #444;
+  color: rgba(255, 255, 255, 0.25);
+  border-radius: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: linear-gradient(#555, #434343);
+}
+.ubuntu .header .buttons .btn i:hover {
+  background: linear-gradient(#fa6531, #E95420);
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+.ubuntu .header .title {
+  flex: 1;
+  z-index: 0;
+  padding-left: 5px;
+}
+.ubuntu .form {
+  min-height: 80px;
+  background: #AEA79F;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.macos {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  animation: hide 1s, openwindows 0.25s;
+  animation-delay: 0s, 1s;
+}
+.macos .header {
+  display: flex;
+  border-radius: 5px 5px 0px 0px;
+  padding: 0px 8px;
+  background: linear-gradient(#f6f6f6, #e0dee0);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.01);
+  position: relative;
+  z-index: 1;
+  height: 25px;
+  line-height: 26px;
+}
+.macos .header .buttons {
+  width: 75px;
+  display: flex;
+}
+.macos .header .buttons:hover {
+  cursor: pointer;
+}
+.macos .header .buttons:hover i {
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+}
+.macos .header .buttons:hover .close i {
+  background: #d86258;
+  color: #222;
+}
+.macos .header .buttons:hover .minus i {
+  background: #f0bd4e;
+  color: #222;
+}
+.macos .header .buttons:hover .expand i {
+  background: #64ca57;
+  color: #222;
+  transform: rotateZ(-45deg);
+}
+.macos .header .buttons .btn {
+  display: inline-block;
+  flex: 1;
+}
+.macos .header .buttons .btn i {
+  font-size: 10px;
+  border-radius: 100%;
+  background: #ccc;
+  color: #ccc;
+  border: 1px solid #bbb;
+  width: 14px;
+  height: 14px;
+  line-height: 12px;
+  text-align: center;
+}
+.macos .header .title {
+  color: #666;
+  display: inline-block;
+  width: 100%;
+  height: 25px;
+}
+.macos .header .title .text, .macos .header .title .icon {
+  height: 25px;
+  line-height: 26px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12px;
+}
+.macos .header .title .text i, .macos .header .title .icon i {
+  padding: 0px 3px;
+  position: relative;
+  top: 4px;
+  font-size: 18px;
+  color: #444;
+}
+.macos .form {
+  min-height: 80px;
+  background: #FFF;
+  border-radius: 0px 0px 5px 5px;
+  border-top: 1px solid #cdcdcd;
+}
+
+@keyframes hide {
+  to, from {
+    opacity: 0;
+  }
+}
+@keyframes openwindows {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

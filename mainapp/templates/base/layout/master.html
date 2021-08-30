@@ -1,0 +1,60 @@
+		
+<!--begin::Main-->
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root">
+	<!--begin::Page-->
+	<div class="page d-flex flex-row flex-column-fluid">
+
+		<!--layout-partial:layout/aside/_default.html-->
+		{% include "base/layout/aside/_default.html" %}
+
+		<!--begin::Wrapper-->
+		<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+
+			<!--layout-partial:layout/header/_base.html-->
+			{% include "base/layout/header/_base.html" %}
+			<!--begin::Content-->
+			<div class="content fs-6 d-flex flex-column flex-column-fluid" id="kt_content">
+
+				<!--layout-partial:layout/toolbars/_default.html-->
+
+				<!--begin::Post-->
+				<div class="post fs-6 d-flex flex-column-fluid" id="kt_post">
+
+				<!--layout-partial:layout/content/_default.html-->
+				<div class="container">
+	
+					{% block content %}
+					{% endblock %}
+					
+				</div>
+				<!-- Main Container -->
+				</div>
+				<!--end::Post-->
+			</div>
+			<!--end::Content-->
+
+			<!--layout-partial:layout/_footer.html-->
+			{% include "base/layout/_footer.html" %}
+		</div>
+		<!--end::Wrapper-->
+	</div>
+	<!--end::Page-->
+	<!--begin::Modals-->
+
+<!--layout-partial:partials/modals/create-project/_main.html-->
+
+
+<!--layout-partial:partials/modals/_invite-friends.html-->
+
+	<!--end::Modals-->
+</div>
+<!--end::Root-->
+
+<!--layout-partial:layout/topbar/partials/_activity-drawer.html-->
+
+
+<!--layout-partial:layout/_scrolltop.html-->
+{% include "base/layout/_scrolltop.html" %}
+		<!--end::Main-->
+		

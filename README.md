@@ -1,4 +1,13 @@
 # Router Testing Software
 
-## (PORT : 5050)
-py app.py
+This WebApp was written to Test Router Datamodels with an interactive Wrapper
+
+Installation Manual
+
+## git clone https://github.com/iDustbin/RouterTesting.git
+
+## cd RouterTesting
+
+## docker-compose up -d
+
+## püen http://localhost:5000

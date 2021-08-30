@@ -12,3 +12,12 @@ This WebApp was written to Test Router Datamodels through an interactive Wrapper
 3.) docker-compose up -d
 
 4.) open http://localhost:5000
+
+
+## Feature Overview
+
+ - iperf3 Speedtest
+ - ookla Speedtest
+ - Datamodel Parser
+ - Ansible WebUI
+ - WebSSH

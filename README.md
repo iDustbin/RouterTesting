@@ -4,10 +4,10 @@ This WebApp was written to Test Router Datamodels with an interactive Wrapper
 
 Installation Manual
 
-# git clone https://github.com/iDustbin/RouterTesting.git
+1.) git clone https://github.com/iDustbin/RouterTesting.git
 
-# cd RouterTesting
+2.) cd RouterTesting
 
-# docker-compose up -d
+3.) docker-compose up -d
 
-# open http://localhost:5000
+4.) open http://localhost:5000

@@ -47,6 +47,7 @@ def ooklaPost():
       "Server" : result['server']['name'],
    }
    return jsonify(obj)
+   print(obj)
 
 
 @viewables.route('/iperf')
@@ -70,6 +71,7 @@ def iperfPost():
    host,port,para = jsonData['host_name'],jsonData['port'],jsonData['para']
    out = iperfRes(host,port,para)
    out = out.decode()
+   print(data)
    return jsonify({"res":out})
 
 
@@ -167,16 +169,19 @@ def iperfRes(host,port,para):
             result=out.decode()
         )
         db.session.add(add_result)
-        db.session.commit()  
+        db.session.commit()
+        print(add_result)  
     except:
         out = "iPerf Returned Error! Something wrong happed (Server Busy / Wrong Parameter)".encode()
     return out
+    print(add_result)
 
 def run_web_ssh_TORNADO():
     try:
         subprocess.Popen(["python3","Features/main.py"],stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     except:
         subprocess.Popen(["python","Features/main.py"],stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+
 def getCFGI_COMMANDS(load_url):
     json_data = []
     data_dict = None
@@ -233,11 +238,11 @@ def getServers():
     return servers
 
 def getServersJson():
-    out = check_output(["./bins/linux/speedtest","-L","-p","no","-f","json"])
+    out = check_output(["./bins/armhf/speedtest","-L","-p","no","-f","json"])
     out = json.loads(out)
     return out
 
 def getResult(sid):
-    out = check_output(["./bins/linux/speedtest","--accept-license","-s",sid,"-p","no","-f","json"])
+    out = check_output(["./bins/armhf/speedtest","--accept-license","-s",sid,"-p","no","-f","json"])
     out = json.loads(out)
     return out
